@@ -1,0 +1,39 @@
+<h4>Comment:
+  <p>
+    <%= @comment.body %>
+  </p>
+</h4>
+
+
+<label>Author's username:
+  <%= @comment.user.username %>
+</label>
+
+<br><br>
+
+<h4>Replies:</h4>
+
+<% @comment.child_comments.each do |comment| %>
+    <%= comment.body %>
+    <br>
+<% end %>
+
+<b>Reply to these comments below:</b>
+
+<br><br>
+
+<form action="<%= comments_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input type="hidden" name="comment[post_id]" value="<%= @new_comment.post_id %>">
+
+  <input type="hidden" name="comment[parent_comment_id]" value="<%= @new_comment.parent_comment_id %>">
+  
+
+  <textarea name="comment[body]"></textarea>
+
+
+  <br><br>
+
+  <input type="submit" value="Submit comment">
+</form>

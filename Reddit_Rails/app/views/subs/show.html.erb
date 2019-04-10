@@ -1,0 +1,31 @@
+<h3>You are on the <%= @sub.name.upcase %> sub-forum page</h3>
+
+<label>MODERATOR:
+    <%= @sub.moderator.username %>
+</label>
+
+<br><br>
+
+<label>NAME:
+    <%= @sub.name %>
+</label>
+
+<br><br>
+
+<label>DESCRIPTION:
+    <%= @sub.description %>
+</label>
+
+<br><br>
+
+<a href="<%= edit_sub_url(@sub) %>">Edit this sub</a>
+
+<h4>related posts listed below:</h4>
+
+<% @sub.posts.each do |post| %>
+  <ul>
+    <li><a href="<%= post_url(post) %>"><%= post.title %></a></li>
+  </ul>
+<% end %>
+
+<a href="<%= subs_url %>">Back to all subs</a>

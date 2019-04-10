@@ -1,0 +1,59 @@
+<h3>You are on the <%= @post.title.upcase %> post page</h3>
+
+<label>AUTHOR:
+    <%= @post.author.username %>
+</label>
+
+<br><br>
+
+<label>TITLE:
+    <%= @post.title %>
+</label>
+
+<br><br>
+
+<label>URL:
+    <%= @post.url %>
+</label>
+
+<br><br>
+
+<label>CONTENT:
+    <%= @post.content %>
+</label>
+
+<br> <br>
+
+<a href="<%= edit_post_url(@post) %>">Edit this post</a>
+
+<br> <br>
+
+<b>Subs:</b>
+
+<% @post.subs.each do |sub| %>
+  <ul>
+    <li><a href="<%= sub_url(sub) %>"><%= sub.name %></a></li>
+  </ul>
+<% end %>
+
+<br>
+<a href="<%= subs_url %>">Back to all subs</a>
+
+<h4>Comments:</h4>
+
+<% @post.comments.where(parent_comment_id: nil).each do |comment| %>
+    <a href="<%= comment_url(comment) %>"><%= comment.body %></a>
+    <% comment.child_comments.each do |child| %>
+    <ul>
+      <li><%= child.body %></li>
+    </ul>
+    <% end %>
+    <br><br>
+<% end %>
+
+<br>
+
+<a href="<%= new_post_comment_url(@post.id) %>">Comment on this post!</a>
+
+<br><br>
+
